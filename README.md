@@ -1,5 +1,5 @@
 # BirdNET-Model-V2.4-RKNN
-BirdNET Model V2.4 converted to RKNN format for use on RK3588
+Script for converting BirdNET Model V2.4 to RKNN format for use on RK3588
 
 ```bibtex
 @article{kahl2021birdnet,

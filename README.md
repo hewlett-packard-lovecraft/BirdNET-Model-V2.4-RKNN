@@ -12,6 +12,7 @@ doesn't work. will segmentation fault. also requires at least 140GB of ram.
 birdnet-fp16-fixed.onnx:
 ``` 
 E RKNN: [20:36:21.810] failed to malloc cpu memory, size: 18446744072612741120
+Segmentation fault (core dumped)
 ```
 
 birdnet-int8-fixed.onnx:

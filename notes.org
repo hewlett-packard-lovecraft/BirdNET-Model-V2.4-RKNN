@@ -1,0 +1,9 @@
+#+title: Notes
+
+*  Reading
+- https://github.com/airockchip/rknn_model_zoo/blob/main/examples/yamnet/python/export_onnx
+  - YamNet originally accepts an input of arbitrary length, which rknn doesn't support
+  - 
+- 
+- https://github.com/birdnet-team/BirdNET-Lite/blob/main/analyze.py
+  - minimal implementation

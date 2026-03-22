@@ -1,0 +1,5 @@
+services:
+  rknn-toolkit2:
+    build: .
+    volumes:
+      - .:/usr/src/birdnet

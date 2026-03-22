@@ -1,0 +1,15 @@
+models:
+  name: birdnet_onnx_fp16
+  platform: onnx
+  model_file_path: ./models2/BirdNET_fp16.onnx
+  subgraphs:
+    input_size_list:
+      - 1, 144000
+    inputs:
+      - input
+    outputs:
+      - output
+    quantize: false
+  configs:
+    target_platform:
+      - rk3588

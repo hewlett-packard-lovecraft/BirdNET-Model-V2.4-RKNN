@@ -1,7 +1,0 @@
-models:
-  name: birdnet-v2.4-audio
-  platform: tflite
-  model_file_path: ./BirdNET_v2.4_tflite/audio-model.tflite
-  quantize: False
-  configs:
-    quant_img_RGB2BGR: false

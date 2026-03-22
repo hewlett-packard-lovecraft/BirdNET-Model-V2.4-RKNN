@@ -24,8 +24,8 @@ ValueError: The DynamicQuantizeLinear('model/MEL_SPEC1/stft/mul_C_0_QuantizeLine
 next steps:
 - quantize birdnet-fp16-fixed.onnx to int8 through rknn-toolkit
 - use onnxruntime to do static quantization before converting to rknn
+- figure out rknn_batch_size
 
-	
 ## Source
 
 - https://huggingface.co/justinchuby/BirdNET-onnx

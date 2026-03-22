@@ -1,6 +1,10 @@
 BirdNET_v2.4_tflite.zip
 
 *.onnx
+!birdnet_fp16_fixed.optimize_fixed.onnx
+!birdnet_fp16_fixed.simplify.onnx
+!birdnet_fp16_fixed.onnx
+
 check_external_data/
 
 # Byte-compiled / optimized / DLL files

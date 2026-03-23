@@ -2,7 +2,7 @@
 Script for converting BirdNET Model V2.4 to RKNN format for use on RK3588
 
 ## Notes
-doesn't work. will segmentation fault. also requires at least 140GB of ram. 
+- requires >256gb swap 
 - `W build: The weight (148269 MiB) of the model is too large, only the basic graph is saved to 'check3_fuse_ops.onnx'!`
 - onnx-converter converted the entire model to fp16, memory requirements are the same
   - `W load_onnx: Please note that some float16/float64 data types in the model have been modified to float32!`

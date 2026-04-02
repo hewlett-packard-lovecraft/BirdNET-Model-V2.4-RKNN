@@ -1,5 +1,8 @@
 BirdNET_v2.4_tflite.zip
 
+.mamba
+
+
 *.onnx
 !birdnet_fp16_fixed.onnx
 !birdnet_fp16_fixed.simplify.onnx

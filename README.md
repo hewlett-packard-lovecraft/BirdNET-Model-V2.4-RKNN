@@ -1,8 +1,34 @@
 # BirdNET-Model-V2.4-RKNN
-Script for converting BirdNET Model V2.4 to RKNN format for use on RK3588
+Script for converting BirdNET Model V2.4 to RKNN format for use on RK3588.
+
+Doesn't work - conversion script segmentation faults eventually - not sure why
+
+## Usage
+
+`git clone --recurse-submodules https://github.com/hewlett-packard-lovecraft/BirdNET-Model-V2.4-RKNN`
+
+### Docker
+
+``` shell
+cd ./docker/
+bash build.sh
+cd ..
+bash launch.sh
+pytho3 convert.py
+```
+
+## nix
+``` shell
+nix-shell
+python3 -m venv .venv
+source .venv/bin/activate
+pip install -r requirements.txt
+python3 convert.py
+```
+
 
 ## Notes
-- requires >256gb swap 
+- Create a 256gb swapfile beforehand
 - `W build: The weight (148269 MiB) of the model is too large, only the basic graph is saved to 'check3_fuse_ops.onnx'!`
 - onnx-converter converted the entire model to fp16, memory requirements are the same
   - `W load_onnx: Please note that some float16/float64 data types in the model have been modified to float32!`

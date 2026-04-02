@@ -1,36 +1,32 @@
-# shell.nix
-let
-  pkgs = import <nixpkgs> { };
-in
-pkgs.mkShell {
-
-  packages = [
-    pkgs.ty
-
-    (pkgs.python3.withPackages (
-      python-pkgs: with python-pkgs; [
-
-        # select Python packages here
-        pandas
-        requests
-
-        numpy
-        librosa
-        onnx
-        onnxruntime
-        sounddevice
-        soundfile
-        tensorflow
-
-        onnxslim
-        onnxconverter-common
-        onnxmltools
-        onnxruntime
-        onnxruntime-tools
-        sympy
-
-      ]
-    ))
-
-  ];
-}
+#!/usr/bin/env nix-shell
+{
+  pkgs ? import <nixpkgs> { },
+}:
+(
+  let
+    base = pkgs.appimageTools.defaultFhsEnvArgs;
+  in
+  pkgs.buildFHSEnv (
+    base
+    // {
+      name = "FHS";
+      targetPkgs =
+        pkgs:
+        (with pkgs; [
+          gcc
+          glibc
+          zlib
+          python311
+          (python311.withPackages (
+            python-pkgs: with python-pkgs; [
+              pip
+              virtualenv
+              basedpyright
+            ]
+          ))
+        ]);
+      runScript = "zsh";
+      extraOutputsToInstall = [ "dev" ];
+    }
+  )
+).env

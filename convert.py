@@ -19,9 +19,9 @@ if __name__ == "__main__":
         target_platform=platform,
         optimization_level=3,
         quantized_dtype="w8a8",
-        #float_dtype="float16",
+        # float_dtype="float16",
     )
-    
+
     print("done")
 
     # Load model

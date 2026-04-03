@@ -1,3 +1,0 @@
-[submodule "docker/rknn-toolkit2"]
-	path = docker/rknn-toolkit2
-	url = git@github.com:airockchip/rknn-toolkit2.git

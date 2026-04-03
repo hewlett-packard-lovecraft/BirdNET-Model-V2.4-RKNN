@@ -25,7 +25,7 @@ def split_audio_file(
         path=src.absolute(), sr=rate, mono=True, res_type="kaiser_fast"
     )
 
-    chunks: list[npt.NDArray[np.float64]] = []
+    chunks: list[npt.NDArray[np.float32]] = []
 
     for i in range(0, len(signal), int((seconds - overlap) * rate)):
         chunk = signal[i : i + int(seconds * rate)]
@@ -38,7 +38,10 @@ def split_audio_file(
             temp[: len(chunk)] = chunk
             chunk = temp
 
-        chunks.append(chunk)
+        # input expects float32. reshape from [144000] to [1, 14000]
+        chunk= np.expand_dims(chunk.astype(np.float32), axis=0)
+        
+        chunks.append(chunk.astype(np.float32))
 
     print(f"Done! Read {str(len(chunks))} chunks. ")
 

@@ -1,1 +1,10 @@
 rknn-toolkit2
+ruff
+basedpyright
+onnx
+resampy
+
+setuptools
+pip
+wheel
+

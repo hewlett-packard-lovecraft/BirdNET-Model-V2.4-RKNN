@@ -5,9 +5,10 @@ from pathlib import Path
 import librosa
 import numpy as np
 import numpy.typing as npt
-from datetime import datetime
+import onnxruntime as ort
 
-DOCKER_DATASET_ABSOLUTE_PATH = "/usr/src/birdnet/dataset/"
+
+DOCKER_DATASET_ABSOLUTE_PATH = "/home/hxia/git/BirdNET-Model-V2.4-RKNN/dataset"
 
 
 def split_audio_file(
@@ -39,8 +40,8 @@ def split_audio_file(
             chunk = temp
 
         # input expects float32. reshape from [144000] to [1, 14000]
-        chunk= np.expand_dims(chunk.astype(np.float32), axis=0)
-        
+        chunk = np.expand_dims(chunk.astype(np.float32), axis=0)
+
         chunks.append(chunk.astype(np.float32))
 
     print(f"Done! Read {str(len(chunks))} chunks. ")

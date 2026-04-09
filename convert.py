@@ -2,25 +2,27 @@ import sys, os
 from rknn.api import RKNN
 
 DEFAULT_QUANT = os.getenv("DEFAULT_QUANT", False)
-MODEL_PATH = "./birdnet.fixed.onnx"
+MODEL_PATH = "./birdnet.tail.onnx"
 
 if __name__ == "__main__":
     model_path = MODEL_PATH
     platform = "rk3588"
-    output_path = "./birdnet.fixed.rknn"
-    do_quant = True
+    output_path = "birdnet.tail.rknn"
+    do_quant = False
 
     # Create RKNN object
-    rknn = RKNN(verbose=False)
+    rknn = RKNN(verbose=True, verbose_file="./rknn_log.txt")
 
     # Pre-process config
     print("--> Config model")
     rknn.config(
         target_platform=platform,
-        optimization_level=0, # 3,
+        optimization_level=3, # 3,
         quantized_dtype="w8a8",
         quantized_algorithm='normal', 
         quantized_method='channel',
+        #remove_reshape=True,
+        enable_flash_attention=True
     )
 
     print("done")
@@ -44,7 +46,7 @@ if __name__ == "__main__":
     ret = rknn.build(
         do_quantization=do_quant,
         #auto_hybrid=True,
-        dataset="./dataset.txt",
+        #dataset="./dataset.txt",
         rknn_batch_size=3,
     )
     if ret != 0:

@@ -16,8 +16,10 @@ birdnet.tail.rknn takes in the spectrogram and outputs confidence scores for all
 meta_model.rknn is the BirdNET v2.4 range model converted from tflite to rknn. it takes in latitude, longitude, week, and outputs label, and confidence scores for each species
 
 ## TODO
-- need to come up with a better solution that running the birdnet.tail.onnx on cpu
-- convert birdnet-v3-dev and perchv2 to rknn
+- come up with a better solution that running the birdnet.tail.onnx on cpu
+- check out birdnet-v3-dev, and perchv2 to rknn
+- v3 has as it has variable length input
+- 32khz and not 48khz
 
 
 ## Usage

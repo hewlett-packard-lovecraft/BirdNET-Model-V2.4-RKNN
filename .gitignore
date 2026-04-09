@@ -1,6 +1,8 @@
 BirdNET_v2.4_tflite.zip
 .mamba
 .direnv
+*.rknn
+*.onnx
 
 
 *.onnx

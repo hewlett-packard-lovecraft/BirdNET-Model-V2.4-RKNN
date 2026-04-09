@@ -1,7 +1,24 @@
 # BirdNET-Model-V2.4-RKNN
-Script for converting BirdNET Model V2.4 to RKNN format for use on RK3588.
+Script for converting BirdNET Model V2.4 to RKNN format for use on RK3588, will quantize from FP32 to fp16/int16
 
-Doesn't work - conversion script segmentation faults eventually - not sure why
+
+## Models
+- meta_model.rknn
+- birdnet.tail.rknn
+- birdnet.head.onnx
+
+birdnet v2.4 takes in 3 seconds of audio at 48000 hz and constructs a mel-spectrogram. however, due to rknpu's maximum dim size of 8191, it's not possible to convert a layer with dimensions [1, 144000] to rknn format. so, we convert birdnet.onnx from justinchuby to a fixed input size, and split it into two models
+
+birdnet.head.onnx takes in audio samples and generates the spectrogram
+
+birdnet.tail.rknn takes in the spectrogram and outputs confidence scores for all 6522 species
+
+meta_model.rknn is the BirdNET v2.4 range model converted from tflite to rknn. it takes in latitude, longitude, week, and outputs label, and confidence scores for each species
+
+## TODO
+- need to come up with a better solution that running the birdnet.tail.onnx on cpu
+- convert birdnet-v3-dev and perchv2 to rknn
+
 
 ## Usage
 
@@ -10,11 +27,8 @@ Doesn't work - conversion script segmentation faults eventually - not sure why
 ### Docker
 
 ``` shell
-cd ./docker/
-bash build.sh
-cd ..
 bash launch.sh
-pytho3 convert.py
+python3 convert.py
 ```
 
 ## nix
@@ -25,32 +39,6 @@ source .venv/bin/activate
 pip install -r requirements.txt
 python3 convert.py
 ```
-
-
-## Notes
-- Create a 256gb swapfile beforehand
-- `W build: The weight (148269 MiB) of the model is too large, only the basic graph is saved to 'check3_fuse_ops.onnx'!`
-- onnx-converter converted the entire model to fp16, memory requirements are the same
-  - `W load_onnx: Please note that some float16/float64 data types in the model have been modified to float32!`
-- rknn can't accept arbitrary inputs
-  - `python -m onnxruntime.tools.make_dynamic_shape_fixed --dim_param batch --dim_value 1 birdnet-fp16.onnx birdnet-fp16-fixed.onnx`
-
-birdnet-fp16-fixed.onnx:
-``` 
-E RKNN: [20:36:21.810] failed to malloc cpu memory, size: 18446744072612741120
-Segmentation fault (core dumped)
-```
-
-birdnet-int8-fixed.onnx:
-
-``` 
-ValueError: The DynamicQuantizeLinear('model/MEL_SPEC1/stft/mul_C_0_QuantizeLinear') will cause the graph to be a dynamic graph! Remove it manually and try again!
-```
-
-next steps:
-- quantize birdnet-fp16-fixed.onnx to int8 through rknn-toolkit
-- use onnxruntime to do static quantization before converting to rknn
-- figure out rknn_batch_size
 
 ## Source
 

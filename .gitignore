@@ -3,6 +3,8 @@ BirdNET_v2.4_tflite.zip
 .direnv
 *.rknn
 *.onnx
+models/*
+dataset/*
 
 
 *.onnx
